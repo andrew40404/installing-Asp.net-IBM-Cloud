@@ -57,13 +57,36 @@ The Block Storage plug-in is a persistent, high-performance iSCSI storage that y
 - Give a **name** to this workspace
 - Click **install** and wait for the deployment
 
-i. Create a [Kubernetes
-cluster](https://cloud.ibm.com/containers-kubernetes/overview) by
-choosing **Cluster Type – Free**. Give a unique name to the cluster and
-click **Create Cluster**.
+**Step 3 For ASP.NET**
 
-Note: For more details, see [Creating a Kubernetes cluster in IBM
-Cloud](https://cloud.ibm.com/docs/containers/container_index.html#clusters).
+Following should be installed on the machine: 
+
+1. **IBM Cloud account**
+2. **IBM CLoud CLI**
+3. **Git**
+4. **.NET Core 2.1.1 SDK 2.1.301**
+
+1. 1. **Steps:**
+
+   2. 1. ​	**Clone/download the IBM Cloud ASP.NET Core Getting Started Application**
+
+   3. ```sh
+      git clone https://github.com/IBM-Cloud/get-started-aspnet-core 
+      ```
+
+   4. ###  **Run the ASP.NET Core app locally**
+
+   5. This step is to verify whether your app is running successfully locally before deployment. You can start by verifying the version of dotnet as follows:
+
+   6. dotnet --version
+
+   7. 1. ​	**Next, navigate to your App folder.**
+
+   8. cd get-started-aspnet-core/src/GetStartedDotnet
+
+   9. 1. ​	**Restore the app with the following command:**
+
+2. 
 
 ![](asp.net%20ibm%20cloud_html_f2948b6bf4e23894.png)
 
