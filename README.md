@@ -66,25 +66,33 @@ Following should be installed on the machine:
 3. **Git**
 4. **.NET Core 2.1.1 SDK 2.1.301**
 
-1. 1. **Steps:**
+**Steps:**
 
-   2. 1. ​	**Clone/download the IBM Cloud ASP.NET Core Getting Started Application**
-
-   3. ```sh
-      git clone https://github.com/IBM-Cloud/get-started-aspnet-core 
+1. **Clone/download the IBM Cloud ASP.NET Core Getting Started Application**
+      ```sh git clone https://github.com/IBM-Cloud/get-started-aspnet-core 
       ```
+2.    ###  **Run the ASP.NET Core app locally**
 
-   4. ###  **Run the ASP.NET Core app locally**
+   This step is to verify whether your app is running successfully locally before deployment. You can start by verifying the version of dotnet as follows:
+      ```dotnet --version
+      ```
+3. **Next, navigate to your App folder.**
+     ```sh cd get-started-aspnet-core/src/GetStartedDotnet 
+     ```
+4. **Restore the app with the following command:**
+     ```sh dotnet restore
+     ```
+This uses NuGet to restore dependencies and project-specific tools that are specified in the project file. By default, the restoration of dependencies and tools are executed in parallel. For more info visit Docs.
+Now, run your application with the following command:
+... sh dotnet run ...
+The application starts listening on port 5000. You will see the following message.
+    ...
+    Now listening on: http://localhost:5000
+    Application started. Press Ctrl+C to shut down.
+    
 
-   5. This step is to verify whether your app is running successfully locally before deployment. You can start by verifying the version of dotnet as follows:
 
-   6. dotnet --version
 
-   7. 1. ​	**Next, navigate to your App folder.**
-
-   8. cd get-started-aspnet-core/src/GetStartedDotnet
-
-   9. 1. ​	**Restore the app with the following command:**
 
 2. 
 
