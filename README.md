@@ -62,39 +62,40 @@ The Block Storage plug-in is a persistent, high-performance iSCSI storage that y
 Following should be installed on the machine: 
 
 1. **IBM Cloud account**
+
 2. **IBM CLoud CLI**
+
 3. **Git**
+
 4. **.NET Core 2.1.1 SDK 2.1.301**
 
-**Steps:**
+   **Steps:**
 
-1. **Clone/download the IBM Cloud ASP.NET Core Getting Started Application**
-      ```sh git clone https://github.com/IBM-Cloud/get-started-aspnet-core 
+   1. **Clone/download the IBM Cloud ASP.NET Core Getting Started Application**
+
+      ```sh cd get-started-aspnet-core/src/GetStartedDotnet 
+      git clone https://github.com/IBM-Cloud/get-started-aspnet-core
       ```
-2.    ###  **Run the ASP.NET Core app locally**
 
-   This step is to verify whether your app is running successfully locally before deployment. You can start by verifying the version of dotnet as follows:
-      ```dotnet --version
+      
+
+   2. This step is to verify whether your app is running successfully locally before deployment. You can start by verifying the version of dotnet as follows:
+
+      ```sh dotnet --version 
+      dotnet --version 
       ```
-3. **Next, navigate to your App folder.**
-     ```sh cd get-started-aspnet-core/src/GetStartedDotnet 
-     ```
-4. **Restore the app with the following command:**
-     ```sh dotnet restore
-     ```
-This uses NuGet to restore dependencies and project-specific tools that are specified in the project file. By default, the restoration of dependencies and tools are executed in parallel. For more info visit Docs.
-Now, run your application with the following command:
-... sh dotnet run ...
-The application starts listening on port 5000. You will see the following message.
-    ...
-    Now listening on: http://localhost:5000
-    Application started. Press Ctrl+C to shut down.
-    
 
+   3. **Next, navigate to your App folder.**
 
+      ```sh cd get-started-aspnet-core/src/GetStartedDotnet 
+      cd get-started-aspnet-core/src/GetStartedDotnet
+      ```
 
+      
 
-2. 
+   4. **Restore the app with the following command:**
+
+   
 
 ![](asp.net%20ibm%20cloud_html_f2948b6bf4e23894.png)
 
