@@ -91,13 +91,13 @@ ibmcloud login --sso
 
 To create an IBM Cloud Cloudant Database, create a new [Cloudant](https://cloud.ibm.com/catalog/services/cloudant) database instance. Select **Use both legacy credentials and IAM** under **Available authentication methods**.
 
-2. Create new credentials under **Service Credentials** and copy the value of the **url** field
+1. Create new credentials under **Service Credentials** and copy the value of the **url** field
 
 2. Create a Kubernetes secret with your Cloudant credentials.
 
-   ```sh
-   kubectl create secret generic cloudant --from-literal=url=<URL>
-   ```
+```sh
+kubectl create secret generic cloudant --from-literal=url=<URL>
+```
 
 3. You will  need this information for the deployment. You can see your secrets by using the following command.
 
@@ -143,7 +143,7 @@ docker build . -t <REGISTRY>/<NAMESPACE>/myapp:v1.0.0
 
 It will display the following message in the end.
 
-   
+  
 
 ```sh
     ...
