@@ -8,7 +8,8 @@
 - Select **Service** from the **Catalog**
 - Search for **Kubernetes Service** and click on it
 
--   -   -
+  
+
 
 ![](asp.net%20ibm%20cloud_html_46d1c04e26ba5eea.png)
 
@@ -59,294 +60,167 @@ The Block Storage plug-in is a persistent, high-performance iSCSI storage that y
 
 **Step 3 For ASP.NET**
 
-Following should be installed on the machine: 
+Create a Kubernetes cluster on the IKS environment
 
-1. **IBM Cloud account**
+1. Log into your [IBM 	Cloud](https://cloud.ibm.com/login?cm_sp=ibmdev-_-developer-tutorials-_-cloudreg) account by using:
 
-2. **IBM CLoud CLI**
+   ```sh
+   ibmcloud login
+   ```
 
-3. **Git**
+or 
 
-4. **.NET Core 2.1.1 SDK 2.1.301**
+```sh
+ibmcloud login --sso
+```
 
-   **Steps:**
+2. Create the IKS cluster for deployment
 
-   1. **Clone/download the IBM Cloud ASP.NET Core Getting Started Application**
+- Create a [Kubernetes 	cluster](https://cloud.ibm.com/containers-kubernetes/overview) by choosing **Cluster Type – Free**. Give a unique name to the cluster and click **Create Cluster****Steps:**
 
-      ```sh cd get-started-aspnet-core/src/GetStartedDotnet 
-      git clone https://github.com/IBM-Cloud/get-started-aspnet-core
-      ```
+3. Deploy your containerized application to the Kubernetes cluster. From now on, you’ll use the kubectl command line.
+4. Follow the instructions in the **Access** tab to set up your kubectl CLI and get access to your cluster.
+5. On running the kubectl get nodes command, you will see something like the following.
 
-      
+```sh cd get-started-aspnet-core/src/GetStartedDotnet 
+ 	NAME           STATUS    AGE       VERSION
+    10.76.197.43   Ready     1d        v1.10.8+IKS
+```
 
-   2. This step is to verify whether your app is running successfully locally before deployment. You can start by verifying the version of dotnet as follows:
+### **Create a Cloudant database in the IKS Cluster**
 
-      ```sh dotnet --version 
-      dotnet --version 
-      ```
+To create an IBM Cloud Cloudant Database, create a new [Cloudant](https://cloud.ibm.com/catalog/services/cloudant) database instance. Select **Use both legacy credentials and IAM** under **Available authentication methods**.
 
-   3. **Next, navigate to your App folder.**
+2. Create new credentials under **Service Credentials** and copy the value of the **url** field
 
-      ```sh cd get-started-aspnet-core/src/GetStartedDotnet 
-      cd get-started-aspnet-core/src/GetStartedDotnet
-      ```
+2. Create a Kubernetes secret with your Cloudant credentials.
 
-      
+   ```sh
+   kubectl create secret generic cloudant --from-literal=url=<URL>
+   ```
 
-   4. **Restore the app with the following command:**
+3. You will  need this information for the deployment. You can see your secrets by using the following command.
 
-   
+```sh
+kubectl get secrets
+```
 
-![](asp.net%20ibm%20cloud_html_f2948b6bf4e23894.png)
+This will display all the secrets you created in their respective clusters.
 
-ii. It will take some time. It is ready to use if you see the
-following:
+### **Deploy ASP.NET Core app to an IKS cluster**
 
-![](asp.net%20ibm%20cloud_html_fcca8f1195b0b5d4.png)
+The [IBM Cloud Container Registry](https://cloud.ibm.com/kubernetes/catalog/registry) provides a multi-tenant private image registry that you can use to safely store and share your Docker images with users in your IBM Cloud account.
 
-4.  5.  6.  7.  8.  
+1. Log in to the Container Registry Service to store the Docker image that we created with Docker.
 
-Show more
+```sh
+    ibmcloud cr login1.  
+```
 
-9.  
+2. Find your container registry namespace by running the following command.
 
-1.  
+   ```sh
+   ibmcloud cr namespaces
+   ```
 
-To create an IBM Cloud Cloudant Database, create a
-new [Cloudant](https://cloud.ibm.com/catalog/services/cloudant) database
-instance. Select **Use both legacy credentials and
-IAM** under **Available authentication methods**.
+3. If you don’t have any, create one by using following command.
 
-![](asp.net%20ibm%20cloud_html_b1c1d061f909a41e.jpg)
+```sh
+ibmcloud cr namespace-add 
+```
 
-2.  
+4. Identify your Container Registry by running the following command.
 
-![](asp.net%20ibm%20cloud_html_b936ac0ca3a95e3b.jpg)
+```sh
+ibmcloud cr info 
+```
 
-3.  
+5. Build and tag (-t) the Docker image by running the command below, replacing REGISTRY and NAMESPACE with the appropriate values.
 
-\
-
-4.  
-
-For example:
-
-kubectl create secret generic cloudant
---from-literal=url=https://username:passw0rdf@username-bluemix.cloudant.com
-
-5.  6.  
-
-This will display all the secrets you created in their respective
-clusters.
-
-10. 
-
-The [IBM Cloud Container
-Registry](https://cloud.ibm.com/kubernetes/catalog/registry) provides a
-multi-tenant private image registry that you can use to safely store and
-share your Docker images with users in your IBM Cloud account.
-
-1.  
-
-ibmcloud cr login
-
-\
-
-2.  
-
-ibmcloud cr namespaces
-
-\
-
-3.  
-
-ibmcloud cr namespace-add \<name\>
-
-For example:
-
-ibmcloud cr namespace-add aspnetapp-01
-
-4.  
-
-ibmcloud cr info
-
-For example: registry.ng.bluemix.net
-
-5.  
-
-docker build . -t \<REGISTRY\>/\<NAMESPACE\>/myapp:v1.0.0
-
-For example:
-
-docker build . -t registry.ng.bluemix.net/aspnetapp-01/myapp:v1.0.0
+```sh
+docker build . -t <REGISTRY>/<NAMESPACE>/myapp:v1.0.0
+```
 
 It will display the following message in the end.
 
-...
+   
 
-Successfully tagged registry.ng.bluemix.net/aspnetapp-01/app:v1.0.0
+```sh
+    ...
+    Successfully tagged 
+    registry.ng.bluemix.net/aspnetapp-01/app:v1.0.0
+```
 
-6.  
+6. Push the Docker image to your [Container 	Registry on IBM Cloud](https://cloud.ibm.com/docs/services/Registry?topic=registry-index#index).
 
-docker push \<REGISTRY\>/\<NAMESPACE\>/myapp:v1.0.0
+```sh
+docker push <REGISTRY>/<NAMESPACE>/myapp:v1.0.0
+```
 
-7.  
+7. Verify that the image was pushed successfully by running the following command.
 
-ibmcloud cr image-list
+```sh
+ibmcloud cr image-lis
+```
 
-You have set up a namespace in the IBM Cloud Container Registry and
-pushed a Docker image to your namespace.
+### **Deploy your containerized application**.
 
-11. 
+1. To create a deployment, you will create a folder called **“kubernetes”** and create a [deployment.yaml](https://github.ibm.com/Nidhi-N-Shah/ASP.NET-CORE-App-Deployment-in-IKS/blob/master/Kubernetes/deployment.yaml) file.
+2. Create a deployment by using the following command.
 
-Once you have a running Kubernetes cluster, you can deploy your
-containerized application on top of it. To do so, you create a
-Kubernetes Deployment configuration. The Deployment instructs Kubernetes
-on how to create and update instances of your application. Once you
-create a Deployment, the Kubernetes master schedules the mentioned
-application instances onto individual Nodes in the cluster. A Kubernetes
-Deployment Controller continuously monitors those instances that were
-created. If the Node that’s hosting an instance goes down or is deleted,
-the Deployment controller replaces it. This provides a self-healing
-mechanism to address machine failure or maintenance.
-
-1.  2.  
-
-vi deployment.yaml
-
-\
-
-\# Update \<REGISTRY\> \<NAMESPACE\> values before use
-
-\# Replace app name instead of get-started-aspnet if you wish to use
-different name for your app
-
-\
-
-apiVersion: apps/v1
-
-kind: Deployment
-
-metadata:
-
-name: get-started-aspnet
-
-labels:
-
-app: get-started-aspnet
-
-spec:
-
-replicas: 2
-
-selector:
-
-matchLabels:
-
-app: get-started-aspnet
-
-template:
-
-metadata:
-
-labels:
-
-app: get-started-aspnet
-
-spec:
-
-containers:
-
-- name: get-started-aspnet
-
-image: \<REGISTRY\>/\<NAMESPACE\>/myapp:v1.0.0
-
-ports:
-
-- containerPort: 8080
-
-imagePullPolicy: Always
-
-env:
-
-- name: CLOUDANT\_URL
-
-valueFrom:
-
-secretKeyRef:
-
-name: cloudant
-
-key: url
-
-optional: true
-
-The deployment get-started-aspnet was created, indicated by
-the .metadata.name field. The Deployment creates two replicated Pods,
-indicated by the replicas field. These replicas are needed to handle the
-traffic in deployment. You can keep it to 1 as well. The selector field
-defines how the Deployment finds which Pods to manage. However, more
-sophisticated selection rules are possible, as long as the Pod template
-itself satisfies the rule. The Pods labeled app: get-started-aspnet are
-using the labels field. The Pod template’s specification,
-or .template.spec field, indicates that the Pods run one
-container, get-started-aspnet, which runs
-the \<REGISTRY\>/\<NAMESPACE\>/myapp:v1.0.0 Docker image. Open port 8080
-so that the container can send and accept traffic. Set
-the imagePullPolicy of the container to Always. The Secret information
-has been updated in the env field, like the CLOUDANT\_URL that we
-mentioned while creating our Secret for the Cloudant database.
-
-3.  4.  
+```sh
+ kubectl create -f kubernetes/deployment.yaml
+```
 
 The output will display, similar to the following message.
 
-deployment "get-started-aspnet" created
+```sh
+    deployment "get-started-aspnet" created
+```
 
-5.  
+
+
+3. By default, the pod is only accessible by its internal IP within the cluster. Create a Kubernetes Service object that external clients can use to access an application running in a cluster. The Service provides load balancing for an application.
 
 Use the NodePort 8080 to expose the deployment.
 
-kubectl expose deployment get-started-aspnet --type NodePort --port 8080
---target-port 8080
+```sh
+kubectl expose deployment get-started-aspnet --type NodePort --port 8080 --target-port 8080
+```
 
-You will see the following message.
+###  Access the application**
 
-service "get-started-aspnet" exposed
+To verify that your application is running successfully, you need to check the STATUS of your pod. It should be in a state of Running:
 
-12. 
+```sh
+ kubectl get pods -l app=get-started-aspnet
+```
 
-To verify that your application is running successfully, you need to
-check the STATUS of your pod. It should be in a state of Running:
+It will appear like this:
 
-kubectl get pods -l app=get-started-aspnet
+```sh
+	NAME                                READY     STATUS    RESTARTS   AGE
+   get-started-aspnet-68d6dc5c4-2trcl   1/1       Running   0          1m
+   get-started-aspnet-68d6dc5c4-qdbkt   1/1       Running   0          1m
+```
 
-It will appear like the following:
+It should also show two instances as we have set two replicas in our deployment.
 
-NAME READY STATUS RESTARTS AGE
+To access your ASP.Net Core application:
 
-get-started-aspnet-68d6dc5c4-2trcl 1/1 Running 0 1m
+1. Identify your Worker Public IP by using ibmcloud cs workers YOUR_CLUSTER_NAME.
+2. Identify the Node Port by using kubectl describe service get-started-aspnet.
+3. Access your application at http://<WORKER-PUBLIC-IP>:<NODE-PORT>/.
 
-get-started-aspnet-68d6dc5c4-qdbkt 1/1 Running 0 1m
+This is how you can deploy and access your application in the IKS environment.
 
-It will show two instances as we have set two replicas in our
-deployment.
+### **Clean up**
 
-For access of ASP.Net Core application:
+Use the following commands to clean up the sample application .
 
-1.  2.  3.  
-
-In this way, deployment and access of application in the IKS environment
-can be done.
-
-13. 
-
-Following command will be used to clean up the sample application:
-
+```sh
 kubectl delete deployment,service -l app=get-started-aspnet
 
 kubectl delete secret cloudant
-
-\
- \
+```
 
