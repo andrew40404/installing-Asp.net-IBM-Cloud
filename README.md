@@ -116,7 +116,7 @@ The [IBM Cloud Container Registry](https://cloud.ibm.com/kubernetes/catalog/regi
 1. Log in to the Container Registry Service to store the Docker image that we created with Docker.
 
 ```sh
-ibmcloud cr login1.  
+ibmcloud cr login1
 ```
 
 2. Find your container registry namespace by running the following command.
