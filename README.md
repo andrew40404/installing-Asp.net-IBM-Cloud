@@ -1,4 +1,4 @@
-# Installing ASP.NET on IBM Cloud
+This document will describe how to install ASP.Net on IBM Cloud using Kubernetes services.
 
 **Step 1 - provision Kubernetes Cluster**
 
@@ -227,3 +227,4 @@ Use the following commands to clean up the sample application .
 kubectl delete deployment,service -l app=get-started-aspnet
 kubectl delete secret cloudant
 ```
+The installation is done. Enjoy!
