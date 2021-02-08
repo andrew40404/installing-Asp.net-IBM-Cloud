@@ -58,11 +58,11 @@ The Block Storage plug-in is a persistent, high-performance iSCSI storage that y
 - Give a **name** to this workspace
 - Click **install** and wait for the deployment
 
-**Step 3 For ASP.NET**
+**Step 3 Deploying ASP.NET**
 
 Create a Kubernetes cluster on the IKS environment
 
-1. Log into your [IBM 	Cloud](https://cloud.ibm.com/login?cm_sp=ibmdev-_-developer-tutorials-_-cloudreg) account by using:
+1. Log into your [IBM Cloud](https://cloud.ibm.com/login?cm_sp=ibmdev-_-developer-tutorials-_-cloudreg) account by using:
 
 
 ```sh
@@ -77,7 +77,7 @@ ibmcloud login --sso
 
 2. Create the IKS cluster for deployment
 
-- Create a [Kubernetes 	cluster](https://cloud.ibm.com/containers-kubernetes/overview) by choosing **Cluster Type – Free**. Give a unique name to the cluster and click **Create Cluster****Steps:**
+- Create a [Kubernetes cluster](https://cloud.ibm.com/containers-kubernetes/overview) by choosing **Cluster Type – Free**. Give a unique name to the cluster and click **Create Cluster Steps:**
 
 3. Deploy your containerized application to the Kubernetes cluster. From now on, you’ll use the kubectl command line.
 4. Follow the instructions in the **Access** tab to set up your `kubectl` CLI and get access to your cluster.
