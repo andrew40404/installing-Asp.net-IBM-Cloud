@@ -2,7 +2,7 @@
 
 This document will describe how to install ASP.Net on IBM Cloud using Kubernetes services.
 
-**Step 1 - provision Kubernetes Cluster**
+## Step 1 - provision Kubernetes Cluster
 
 - Click the **Catalog** button on the top
 - Select **Service** from the **Catalog**
@@ -36,7 +36,7 @@ This document will describe how to install ASP.Net on IBM Cloud using Kubernetes
 > 
 
 - If at your current location selection, there is no available Virtual LAN, a new VLAN will be created for you
-- Choose a Worker node setup or use the preselected one. SSet Worker node amount per zone
+- Choose a Worker node setup or use the preselected one. Set Worker node amount per zone
 - Choose **Master Service Endpoint**. 
 
 > In VRF-enabled accounts, you can choose private-only to make your master accessible on the private network or via VPN tunnel. Choose public-only to make your master publicly accessible. When you have a VRF-enabled account, your cluster is set up by default to use both private and public endpoints.
@@ -46,7 +46,7 @@ This document will describe how to install ASP.Net on IBM Cloud using Kubernetes
 - Wait for your cluster to be provisioned
 - Your cluster is ready for usage
 
-**Step 2 Deploy IBM Cloud Block Storage plug-in**
+## Step 2 Deploy IBM Cloud Block Storage plug-in
 
 The Block Storage plug-in is a persistent, high-performance iSCSI storage that you can add to your apps by using Kubernetes Persistent Volumes (PVs).
 
@@ -58,17 +58,15 @@ The Block Storage plug-in is a persistent, high-performance iSCSI storage that y
 - Give a **name** to this workspace
 - Click **install** and wait for the deployment
 
-**Step 3 Deploying ASP.NET**
+## Step 3 Deploying ASP.NET
 
 Create a Kubernetes cluster on the IKS environment
 
 1. Log into your [IBM Cloud](https://cloud.ibm.com/login?cm_sp=ibmdev-_-developer-tutorials-_-cloudreg) account by using:
 
-
 ```sh
 ibmcloud login
 ```
-
 or 
 
 ```sh
@@ -91,7 +89,7 @@ cd get-started-aspnet-core/src/GetStartedDotnet
     10.76.197.43   Ready     1d        v1.10.8+IKS
 ```
 
-**Create a Cloudant database in the IKS Cluster**
+### Create a Cloudant database in the IKS Cluster
 
 To create an IBM Cloud Cloudant Database, create a new [Cloudant](https://cloud.ibm.com/catalog/services/cloudant) database instance. Select **Use both legacy credentials and IAM** under **Available authentication methods**.
 
@@ -111,7 +109,7 @@ kubectl get secrets
 
 This will display all the secrets you created in their respective clusters.
 
-**Deploy ASP.NET Core app to an IKS cluster**
+### Deploy ASP.NET Core app to an IKS cluster
 
 The [IBM Cloud Container Registry](https://cloud.ibm.com/kubernetes/catalog/registry) provides a multi-tenant private image registry that you can use to safely store and share your Docker images with users in your IBM Cloud account.
 
@@ -147,7 +145,7 @@ docker build . -t <REGISTRY>/<NAMESPACE>/myapp:v1.0.0
 
 It will display the following message in the end.
 
-  
+
 ```
 Successfully tagged 
 registry.ng.bluemix.net/aspnetapp-01/app:v1.0.0
@@ -166,7 +164,7 @@ docker push <REGISTRY>/<NAMESPACE>/myapp:v1.0.0
 ibmcloud cr image-lis
 ```
 
-**Deploy your containerized application**.
+### Deploy your containerized application.
 
 1. To create a deployment, you will create a folder called **kubernetes** and create a [deployment.yaml](https://github.ibm.com/Nidhi-N-Shah/ASP.NET-CORE-App-Deployment-in-IKS/blob/master/Kubernetes/deployment.yaml) file.
 2. Create a deployment by using the following command.
@@ -174,7 +172,6 @@ ibmcloud cr image-lis
 ```sh
 kubectl create -f kubernetes/deployment.yaml
 ```
-
 The output will display, similar to the following message.
 
 ```sh
@@ -190,7 +187,7 @@ Use the NodePort 8080 to expose the deployment.
 kubectl expose deployment get-started-aspnet --type NodePort --port 8080 --target-port 8080
 ```
 
-**Access the application**
+### Access the application
 
 To verify that your application is running successfully, you need to check the STATUS of your pod. It should be in a state of Running:
 
@@ -221,7 +218,7 @@ ibmcloud cs workers YOUR_CLUSTER_NAME
 
 This is how you can deploy and access your application in the IKS environment.
 
-**Clean up**
+### Clean up
 
 Use the following commands to clean up the sample application .
 
