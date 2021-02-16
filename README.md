@@ -45,7 +45,7 @@ This document will describe how to install ASP.Net on IBM Cloud using Kubernetes
 - Wait for your cluster to be provisioned
 - Your cluster is ready for usage
 
-## Step 2 Deploy IBM Cloud Block Storage plug-in
+## Step 2 - Deploy IBM Cloud Block Storage plug-in
 
 The Block Storage plug-in is a persistent, high-performance iSCSI storage that you can add to your apps by using Kubernetes Persistent Volumes (PVs).
 
@@ -57,7 +57,7 @@ The Block Storage plug-in is a persistent, high-performance iSCSI storage that y
 - Give a **name** to this workspace
 - Click **install** and wait for the deployment
 
-## Step 3 Deploying ASP.NET
+## Step 3 - Deploying ASP.NET
 
 Create a Kubernetes cluster on the IKS environment
 
@@ -115,7 +115,7 @@ The [IBM Cloud Container Registry](https://cloud.ibm.com/kubernetes/catalog/regi
 1. Log in to the Container Registry Service to store the Docker image that we created with Docker.
 
 ```sh
-ibmcloud cr login1
+ibmcloud cr login
 ```
 
 2. Find your container registry namespace by running the following command.
